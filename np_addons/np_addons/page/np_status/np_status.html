@@ -1,0 +1,130 @@
+<div class="col-md-12 container">
+    <div class="row" style="padding: 2%;">
+      <h1 class="heading_size">STYLE TEXTILE (PVT) LTD.</h1>  
+    </div>
+    <!-- <h1 class="heading_size">STYLE TEXTILE (PVT) LTD.</h1> -->
+    <div class="row">
+      <div class="filter_section">
+        <!-- <div class="col-md-2 sales_order_control"></div> -->
+        <!-- <div class="col-md-2 company_control"></div>
+        <div class="col-md-2 project_control"></div> -->
+        <button id="filter_btn" style="display: none;"></button>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <div class="card text-white bg-info mb-3">
+              <div class="card-header">Total Sales Order</div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Total Sales Order</h5> -->
+                <p class="card-text">1000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-header">Total Delivery</div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Total Delivery</h5> -->
+                <p class="card-text">1000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-header">Total Invoice</div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Total Invoice</h5> -->
+                <p class="card-text">1000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">Total Amount</div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Total Amount</h5> -->
+                <p class="card-text">RS. 1000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">Outstanding Amount</div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Outstanding Amount</h5> -->
+                <p class="card-text">RS. 1000</p>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+      </div>
+    <div class="col-md-12">
+      
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-6 sales_order_control"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h2>Sales Orders</h2>
+                <table id="datatable" 
+                data-pagination="true" 
+                data-pagination-pre-text="Previous" 
+                data-pagination-next-text="Next"
+                data-toggle="table"
+                data-height="530">
+                  <thead class="table-head">
+                    <tr>
+                      <th data-field="order_no" data-sortable="true">Sales Order No.</th>
+                      <th data-field="po_no" data-sortable="true">Purchase Order</th>
+                      <th data-field="total_qty" data-sortable="true">Total Qty</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="col-md-12" id="echart_status" style="height: 530px;"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Items</h2>
+            <table class="table table-hover-tbody">
+              <thead class="table-head">
+                <tr>
+                  <th>Item Name</th>
+                  <th>Sales Order No</th>
+                  <th>PO Number</th>
+                  <th>QTY</th>
+                  <th>Plan</th>
+                  <th>Job Card</th>
+                  <th>Delivery</th>
+                  <th>Delivery Trip</th>
+                  <th>Invoice</th>
+                </tr>
+              </thead>
+              <tbody id="item_data">
+                <tr><td colspan="9" style=" text-align: center; font-weight: 500; ">NO DATA</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+     
+      </div>
+    </div>
+
+
+    
+</div>

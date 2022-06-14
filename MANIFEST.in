@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include np_addons *.css
+recursive-include np_addons *.csv
+recursive-include np_addons *.html
+recursive-include np_addons *.ico
+recursive-include np_addons *.js
+recursive-include np_addons *.json
+recursive-include np_addons *.md
+recursive-include np_addons *.png
+recursive-include np_addons *.py
+recursive-include np_addons *.svg
+recursive-include np_addons *.txt
+recursive-exclude np_addons *.pyc
