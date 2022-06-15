@@ -1,6 +1,6 @@
 <div class="col-md-12 container">
     <div class="row" style="padding: 2%;">
-      <h1 class="heading_size">STYLE TEXTILE (PVT) LTD.</h1>  
+      <h1 class="heading_size" id="customer_title"></h1>  
     </div>
     <!-- <h1 class="heading_size">STYLE TEXTILE (PVT) LTD.</h1> -->
     <div class="row">
@@ -14,52 +14,50 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-          <div class="col-md-2"></div>
-          <div class="col-md-2">
-            <div class="card text-white bg-info mb-3">
-              <div class="card-header">Total Sales Order</div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">Total Sales Order</h5> -->
-                <p class="card-text">1000</p>
-              </div>
+        <div class="col-md-6">
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">Total Sales Order</div>
+                    <div class="card-body">
+                        <p class="card-text" id="so_count">0</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="card text-white bg-primary mb-3">
-              <div class="card-header">Total Delivery</div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">Total Delivery</h5> -->
-                <p class="card-text">1000</p>
-              </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Total Delivery</div>
+                    <div class="card-body">
+                        <p class="card-text" id="dn_count">0</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="card text-white bg-secondary mb-3">
-              <div class="card-header">Total Invoice</div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">Total Invoice</h5> -->
-                <p class="card-text">1000</p>
-              </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">Total Invoice</div>
+                    <div class="card-body">
+                        <p class="card-text" id="si_count">0</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="card text-white bg-success mb-3">
-              <div class="card-header">Total Amount</div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">Total Amount</h5> -->
-                <p class="card-text">RS. 1000</p>
-              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Total Amount</div>
+                    <div class="card-body">
+                        <p class="card-text"><span style="font-weight: 700;">Rs.</span> <span id="total_sales_amount">0 /-</span></p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="card text-white bg-dark mb-3">
-              <div class="card-header">Outstanding Amount</div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">Outstanding Amount</h5> -->
-                <p class="card-text">RS. 1000</p>
-              </div>
+            <div class="col-md-6">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Outstanding Amount</div>
+                    <div class="card-body">
+                        <p class="card-text"><span style="font-weight: 700;">Rs.</span> <span id="total_outstanding_amount">0 /-</span></p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
       </div>
       
       </div>
@@ -67,9 +65,14 @@
       
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-12">
+            <div class="col-md-12" id="echart_status" style="height: 530px;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <div class="row">
-              <div class="col-md-6 sales_order_control"></div>
+              <div class="col-md-2 sales_order_control"></div>
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -91,9 +94,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9">
-            <div class="col-md-12" id="echart_status" style="height: 530px;"></div>
-          </div>
+          
         </div>
 
         <div class="row">

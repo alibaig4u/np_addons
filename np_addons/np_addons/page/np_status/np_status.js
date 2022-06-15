@@ -18,6 +18,7 @@ frappe.si_list = {
 
 	make: function (wrapper, page) {
 		setTimeout(() => {
+			frappe.si_list.renderHeadingTiles()
 			frappe.si_list.renderFilters(wrapper, page);
 			// frappe.si_list.orderdate_control.set_value([frappe.datetime.month_start(), frappe.datetime.now_date()]);
 			frappe.si_list.renderChart()
@@ -45,7 +46,7 @@ frappe.si_list = {
 				placeholder: __("Select Order No"),
 				options: 'Sales Order',
 				filters:{
-					"customer":"STYLE TEXTILE (PVT) LTD."
+					"customer":frappe.si_list.customer
 				},
 				change: function () {
 					//todo
@@ -56,55 +57,9 @@ frappe.si_list = {
 			render_input: true,
 		});
 
-		// frappe.si_list.company_control = frappe.ui.form.make_control({
-		// 	df: {
-		// 		label: __("Company"),
-		// 		fieldtype: 'Link',
-		// 		placeholder: __("Select Company"),
-		// 		options: 'Company',
-		// 		change: function () {
-		// 			//todo
-		// 			$("#filter_btn").trigger("click");
-		// 		}
-		// 	},
-		// 	parent: $('.company_control'),
-		// 	render_input: true,
-		// });
-
-		// frappe.si_list.project_control = frappe.ui.form.make_control({
-		// 	df: {
-		// 		label: __("Project"),
-		// 		fieldtype: 'Link',
-		// 		placeholder: __("Select Project"),
-		// 		options: 'Project',
-		// 		change: function () {
-		// 			//todo
-		// 			$("#filter_btn").trigger("click");
-		// 		}
-		// 	},
-		// 	parent: $('.project_control'),
-		// 	render_input: true,
-		// });
 
 		page.main.on("click", "#filter_btn", function () {
 			$('#item_data').html('<tr><td colspan="9" style=" text-align: center; font-weight: 500; ">NO DATA</td></tr>')
-			// $('#document_status').html(`<tr>
-			// 								<td>Shop Drawing</td>
-			// 								<td> 0 % </td>
-			// 							</tr>
-			// 							<tr>
-			// 								<td>Ordering</td>
-			// 								<td> 0 % </td>
-			// 							</tr>
-			// 							<tr>
-			// 								<td>Manufacturing</td>
-			// 								<td> 0 % </td>
-			// 							</tr>
-			// 							<tr>
-			// 								<td>Delivery Note</td>
-			// 								<td> 0 % </td>
-			// 							</tr>
-			// 					`);
 			frappe.si_list.table.bootstrapTable('load', frappe.si_list.setSOList(1, 10));
 		})
 
@@ -131,9 +86,9 @@ frappe.si_list = {
 							<td>`+v.qty+`</td>
 							<td>`+v.plan_no+`</td>
 							<td></td>
+							<td>`+v.delivery_qty+`</td>
 							<td></td>
-							<td></td>
-							<td></td>
+							<td>`+v.invoice_qty+`</td>
 						</tr>`
 					})
 					$('#item_data').html(item_html)
@@ -141,47 +96,6 @@ frappe.si_list = {
 					var ordering_status = !is_null(row.ordering_status) ? row.ordering_status : 0; 
 					var manufacturing_status = !is_null(row.manufacturing_status) ? row.manufacturing_status : 0; 
 					var delivery_status = 0;
-					// $('#document_status').html(`<tr class='document_row' data-so='`+row.order_no+`' data-doc='Shop Drawing'>
-					// 								<td>Shop Drawing</td>
-					// 								<td> `+sd_status+` % </td>
-					// 							</tr>
-					// 							<tr class='document_row' data-so='`+row.order_no+`' data-doc='Ordering'>
-					// 								<td>Ordering</td>
-					// 								<td> `+ordering_status+` % </td>
-					// 							</tr>
-					// 							<tr class='document_row' data-so='`+row.order_no+`' data-doc='Manufacturing'>
-					// 								<td>Manufacturing</td>
-					// 								<td> `+manufacturing_status+` % </td>
-					// 							</tr>
-					// 							<tr class='document_row' data-so='`+row.order_no+`' data-doc='Delivery Note'>
-					// 								<td>Delivery Note</td>
-					// 								<td> `+delivery_status+` % </td>
-					// 							</tr>
-					// `)
-					frappe.si_list.refreshChartData([sd_status, ordering_status, manufacturing_status, delivery_status, 0]);
-
-					// $('.document_row').on('click', function(e){
-					// 	// debugger;
-					// 	var so_doc = $(this).data('so');
-					// 	var doctype = $(this).data('doc');
-					// 	if(typeof(so_doc) != 'undefined'){
-							
-					// 		if(['Manufacturing', 'Shop Drawing'].includes(doctype)){
-					// 			frappe.new_doc(doctype, {"sale_order": so_doc})
-					// 		}
-					// 		else if(doctype == 'Delivery Note'){
-					// 			frappe.new_doc(doctype, {"against_sales_order": so_doc})
-					// 		}
-					// 		else{
-					// 			frappe.new_doc(doctype, {"sales_order": so_doc})
-					// 		}
-							
-							
-					// 	}
-					
-						
-					// })
-
 					
 
 			}
@@ -200,7 +114,7 @@ frappe.si_list = {
 				limit: size,
 				filters: {
 					orderno: frappe.si_list.order_control.get_value() != "" ? frappe.si_list.order_control.get_value() : null,
-				// 	company: frappe.si_list.company_control.get_value() != "" ? frappe.si_list.company_control.get_value() : null,
+					customer: frappe.si_list.customer != "" ? frappe.si_list.customer : null,
 				// 	project: frappe.si_list.project_control.get_value() != "" ? frappe.si_list.project_control.get_value() : null,
 				}
 			},
@@ -224,21 +138,60 @@ frappe.si_list = {
 
 
 	},
+	renderHeadingTiles: function(){
+		var tile_values = frappe.si_list.getCommonValues()
+		$('#customer_title').html(tile_values.customer)
+		$('#so_count').html(tile_values.so_count)
+		$('#dn_count').html(tile_values.dn_count)
+		$('#si_count').html(tile_values.si_count)
+		$('#total_sales_amount').html(tile_values.total_sales_amount+" /-")
+		$('#total_outstanding_amount').html(tile_values.total_outstanding_amount+" /-")
+	},
+	getCommonValues: function(){
+		frappe.si_list.customer = ""
+		var so_count = 0
+		var dn_count = 0
+		var si_count = 0
+		var total_sales_amount = 0
+		var total_outstanding_amount = 0
+		frappe.call({
+			method:"np_addons.np_addons.page.np_status.np_status.get_tiles_value",
+			async:false,
+			callback: function(r){
+				if(r.message){
+					var data = r.message[0]
+					frappe.si_list.customer = data.customer
+					so_count = data.so_count
+					dn_count = data.dn_count
+					si_count = data.si_count
+					total_sales_amount = data.total_sales_amount
+					total_outstanding_amount = data.total_outstanding_amount
+					
+				}
+			}
+		})
+		return {"customer":frappe.si_list.customer,"so_count":so_count,"dn_count":dn_count,"si_count":si_count,"total_sales_amount":total_sales_amount,"total_outstanding_amount":total_outstanding_amount}
+	},
 	renderChart: function(){
 		// debugger;
 		var dom = document.getElementById('echart_status');
+		var dataset = frappe.si_list.getCommonValues()
 		frappe.si_list.myChart = echarts.init(dom)
 		var option = {
 			yAxis: {
 				type: 'category',
-				data: ['Sales Order', 'Delivery', 'Invoice', 'Total Amount', 'Outstanding Amount']
+				data: [
+					// 'Outstanding Amount', 'Total Amount', 
+					'Invoice', 'Delivery', 'Sales Order' ]
 			},
 			xAxis: {
 				type: 'value'
 			},
 			series: [
 				{
-				data: [200, 1000, 600, 1000, 150],
+				data: [
+					// dataset.total_outstanding_amount, dataset.total_sales_amount, 
+					dataset.si_count, dataset.dn_count, dataset.so_count],
 				type: 'bar'
 				}
 			]
@@ -253,7 +206,7 @@ frappe.si_list = {
 		var options = {
 			yAxis: {
 				type: 'category',
-				data: ['Sales Order', 'Delivery', 'Invoice', 'Total Amount', 'Outstanding Amount']
+				data: ['Outstanding Amount', 'Total Amount', 'Invoice', 'Delivery', 'Sales Order' ]
 			},
 			xAxis: {
 				type: 'value'
